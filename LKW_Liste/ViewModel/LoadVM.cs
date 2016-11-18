@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LKW_Liste.ViewModel
 {
-    class LoadVM
+    public class LoadVM
     {
         private string name;
         private float weight;

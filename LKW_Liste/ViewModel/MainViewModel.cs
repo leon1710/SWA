@@ -11,7 +11,9 @@ namespace LKW_Liste.ViewModel
         private ObservableCollection<TruckVM> readyTrucks = new ObservableCollection<TruckVM>();
         private ObservableCollection<LoadVM> load = new ObservableCollection<LoadVM>();
 
+    
         private TruckVM selectedReadyTruck;
+        private TruckVM selectedWaitingTruck;
         private RelayCommand deleteBtnClicked;
         private RelayCommand startGenBtnClicked;
         private RelayCommand shiftTruckToReady;
@@ -22,15 +24,32 @@ namespace LKW_Liste.ViewModel
             LoadData();
             DeleteBtnClicked = new RelayCommand(ClearAllEntries);
             StartGenBtnClicked = new RelayCommand(CreateEntries);
+            shiftTruckToReady = new RelayCommand(ShiftToReadyTrucks);
         }
+
+        private void ShiftToReadyTrucks()
+        {
+            ReadyTrucks.Add(SelectedWaitingTruck);
+        }
+
+        
 
         private void CreateEntries()
         {
-            waitingTrucks.Add(new TruckVM("Salzburg", 2, load));
-            waitingTrucks.Add(new TruckVM("Wien", 5, load));
-            waitingTrucks.Add(new TruckVM("Brüssel", 3, load));
+            WaitingTrucks.Add(new TruckVM("Salzburg", 2));
+            WaitingTrucks[0].Load.Add(new LoadVM("Paket1", 3, 3));
+            WaitingTrucks.Add(new TruckVM("Wien", 5));
+            WaitingTrucks[1].Load.Add(new LoadVM("Paket2", 2, 5));
+            WaitingTrucks.Add(new TruckVM("Brüssel", 3));
+            WaitingTrucks[2].Load.Add(new LoadVM("Paket3", 2, 5));
         }
 
+        /*
+        private bool CheckIfBtnEnabled()
+        {
+            return WaitingTrucks.Count > 1;
+        }
+        */
         private void LoadData()
         {
             // waitingTrucks.Add(new TruckVM("Salzburg", 2, )
@@ -63,7 +82,7 @@ namespace LKW_Liste.ViewModel
 
 
 
-        internal ObservableCollection<TruckVM> WaitingTrucks
+        public ObservableCollection<TruckVM> WaitingTrucks
         {
             get
             {
@@ -89,7 +108,7 @@ namespace LKW_Liste.ViewModel
             }
         }
 
-        internal ObservableCollection<TruckVM> ReadyTrucks
+        public ObservableCollection<TruckVM> ReadyTrucks
         {
             get
             {
@@ -102,7 +121,7 @@ namespace LKW_Liste.ViewModel
             }
         }
 
-        internal TruckVM SelectedReadyTruck
+        public TruckVM SelectedReadyTruck
         {
             get
             {
@@ -112,9 +131,34 @@ namespace LKW_Liste.ViewModel
             set
             {
                 selectedReadyTruck = value;
+                RaisePropertyChanged();
             }
         }
 
-        
+        public TruckVM SelectedWaitingTruck
+        {
+            get
+            {
+                return selectedWaitingTruck;
+            }
+
+            set
+            {
+                selectedWaitingTruck = value;
+            }
+        }
+
+        public ObservableCollection<LoadVM> Load
+        {
+            get
+            {
+                return load;
+            }
+
+            set
+            {
+                load = value;
+            }
+        }
     }
 }

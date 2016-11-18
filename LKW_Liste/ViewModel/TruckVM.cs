@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace LKW_Liste.ViewModel
 {
-    class TruckVM
+    public class TruckVM
     {
         private string source;
         private int duration;
         ObservableCollection<LoadVM> load = new ObservableCollection<LoadVM>();
 
-        public TruckVM(string source, int duration, ObservableCollection<LoadVM> load)
+        public TruckVM(string source, int duration)
         {
             this.source = source;
             this.duration = duration;
-            this.load = load;
+            //this.load = load;
         }
 
         public string Source
@@ -46,7 +46,7 @@ namespace LKW_Liste.ViewModel
             }
         }
 
-        internal ObservableCollection<LoadVM> Load
+        public ObservableCollection<LoadVM> Load
         {
             get
             {
@@ -57,6 +57,11 @@ namespace LKW_Liste.ViewModel
             {
                 load = value;
             }
+        }
+
+        public override string ToString()
+        {
+            return source+ " "+ duration;
         }
     }
 }
