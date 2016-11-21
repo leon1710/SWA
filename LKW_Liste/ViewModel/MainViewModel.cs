@@ -23,7 +23,7 @@ namespace LKW_Liste.ViewModel
 
         public MainViewModel()
         {
-            LoadData();
+            //LoadData();
             DeleteBtnClicked = new RelayCommand(ClearAllEntries);
             StartGenBtnClicked = new RelayCommand(CreateEntries, CheckIfBtnClicked);
             StopGenBtnClicked = new RelayCommand(StopGenerating);
