@@ -35,6 +35,8 @@ namespace LKW_Liste.ViewModel
             Timer.Stop();
         }
 
+        
+
         private bool CheckIfBtnClicked()
         {
             if (WaitingTrucks.Count > 0)
@@ -72,6 +74,7 @@ namespace LKW_Liste.ViewModel
             WaitingTrucks[1].Load.Add(new LoadVM("Paket2", 2, 5));
             WaitingTrucks.Add(new TruckVM("Brüssel", 3));
             WaitingTrucks[2].Load.Add(new LoadVM("Paket3", 2, 5));
+            //CheckIfBtnClicked(WaitingTrucks);
         }
 
         private void LoadData()
