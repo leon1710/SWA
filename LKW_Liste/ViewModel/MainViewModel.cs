@@ -14,6 +14,8 @@ namespace LKW_Liste.ViewModel
         private DispatcherTimer timer = new DispatcherTimer();
         
 
+
+
         private TruckVM selectedReadyTruck;
         private TruckVM selectedWaitingTruck;
         private RelayCommand deleteBtnClicked;
@@ -53,8 +55,10 @@ namespace LKW_Liste.ViewModel
 
         private void CreateEntries()
         {
+            /*
             Timer.Interval = new TimeSpan(0, 0, 3);
             Timer.Tick += new EventHandler(CreateEntriesWithTimer);
+            */
             Timer.Start();
             /*
             WaitingTrucks.Add(new TruckVM("Salzburg", 2));
@@ -199,6 +203,10 @@ namespace LKW_Liste.ViewModel
             set
             {
                 timer = value;
+                /*
+                timer.Interval = new TimeSpan(0, 0, 3);
+                timer.Tick += new EventHandler(CreateEntriesWithTimer);
+                */
             }
         }
     }

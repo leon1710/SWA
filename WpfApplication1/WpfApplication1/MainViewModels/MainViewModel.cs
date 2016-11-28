@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodingDojo3.ViewModels
+namespace WpfApplication1.MainViewModels
 {
-    public class MainVM
+    class MainViewModel
     {
     }
 }

@@ -3,11 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CodingDojo3"
+        xmlns:local="clr-namespace:Dojo3"
+        xmlns:converter="clr-namespace:Dojo3.Converters"
+        xmlns:ViewModels="clr-namespace:Dojo3.ViewModels" x:Class="Dojo3.MainWindow"
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="480.414" Width="712.261" >
+        Title="MainWindow" Height="558.2" Width="653">
+    <Window.DataContext>
+        <ViewModels:MainVM/>
+    </Window.DataContext>
 
-   
+    <Window.Resources>
+        <converter:ConverterForStock x:Key="ConvertColor">
+        </converter:ConverterForStock>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -15,8 +25,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Label Margin="50,0,0,0" Width="50" Height="30" HorizontalAlignment="Left" x:Name="labelFilter" Grid.Row="0" Content="Filter"/>
-        <ComboBox ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrency}" Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="filterBox" Width="100" Height="20" Grid.Row="0"/>
-        <Button x:Name="searchButton" Height="20" Width="70" Content="Search" Foreground="White">
+        <TextBox Text="{Binding UserFilter}"  Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="filterBox" Width="100" Height="20" Grid.Row="0"/>
+        <Button Command="{Binding FilterBtnClicked}" x:Name="searchButton" Height="20" Width="70" Content="Search" Foreground="White">
             <Button.Template>
                 <ControlTemplate>
                     <Border CornerRadius="4" Opacity="1">
@@ -36,17 +46,23 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <DataGrid ItemsSource="{Binding Items}" BorderBrush="Blue" x:Name="dataGrid" Margin="50, 10,50,10" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="2" AutoGenerateColumns="False">
+        <DataGrid  ItemsSource="{Binding Filtered}" BorderBrush="Blue" x:Name="dataGrid" Margin="50, 10,50,10" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="2" AutoGenerateColumns="False" SelectedItem="{Binding SelectedName}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="1*" Header="Name" />
-                <DataGridTextColumn Width="1*" Header="Group"/>
-                <DataGridTextColumn Width="1*" Header="Sales Price"/>
-                <DataGridTextColumn Width="1*" Header="Purchase Price"/>
-                <DataGridTextColumn Width="1*" Header="On Stock"/>
+                <DataGridTextColumn Width="1*" Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Width="1*" Header="Group" Binding="{Binding Group}"/>
+                <DataGridTextColumn Width="1*" Header="Sales Price" Binding="{Binding SalesPrice}"/>
+                <DataGridTextColumn Width="1*" Header="Purchase Price" Binding="{Binding PurchasePrice}"/>
+                <DataGridTemplateColumn Header="OnStock">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Height="10" Width="10" Fill="{Binding OnStock, Converter={StaticResource ConvertColor}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="2" x:Name="deleteButton" Height="20" Width="70" Content="Delete" Foreground="White" Margin="0,0,100,0" HorizontalAlignment="Right">
+        <Button Command="{Binding DeleteBtnClicked}" Grid.Row="2" x:Name="deleteButton" Height="20" Width="70" Content="Delete" Foreground="White" Margin="0,0,100,0" HorizontalAlignment="Right">
             <Button.Template>
                 <ControlTemplate>
                     <Border CornerRadius="4" Opacity="1">
