@@ -35,7 +35,6 @@ namespace Server_Client
             {
                 clients.Add(new ClientHandler(serversocket.Accept(), inf));
                 Console.WriteLine("client " + clients.Count + " accepted!");
-
             }
         }
 

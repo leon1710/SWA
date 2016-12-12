@@ -48,7 +48,7 @@ namespace Server_Client
         private void ReceiveData(object o)
         {
             int length;
-            String message;
+            String message ="";
             Console.WriteLine("Start receiving...");
             while (true)
             {

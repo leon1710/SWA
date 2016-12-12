@@ -12,7 +12,14 @@ namespace LKW_Liste.ViewModel
         private ObservableCollection<TruckVM> readyTrucks = new ObservableCollection<TruckVM>();
         private ObservableCollection<LoadVM> load = new ObservableCollection<LoadVM>();
         private DispatcherTimer timer = new DispatcherTimer();
-        
+        private bool isClickable = true;
+
+        public bool IsClickable
+        {
+            get { return isClickable; }
+            set { isClickable = value; }
+        }
+
 
 
 
@@ -28,8 +35,13 @@ namespace LKW_Liste.ViewModel
             //LoadData();
             DeleteBtnClicked = new RelayCommand(ClearAllEntries);
             StartGenBtnClicked = new RelayCommand(CreateEntries, CheckIfBtnClicked);
-            StopGenBtnClicked = new RelayCommand(StopGenerating);
+            StopGenBtnClicked = new RelayCommand(StopGenerating, CheckIfBtnClicked2);
             shiftTruckToReady = new RelayCommand(ShiftToReadyTrucks);
+        }
+
+        private bool CheckIfBtnClicked2()
+        {
+            return !IsClickable;
         }
 
         private void StopGenerating()
@@ -41,9 +53,7 @@ namespace LKW_Liste.ViewModel
 
         private bool CheckIfBtnClicked()
         {
-            if (WaitingTrucks.Count > 0)
-                return false;
-            else return true;
+            return IsClickable;
         }
 
         private void ShiftToReadyTrucks()

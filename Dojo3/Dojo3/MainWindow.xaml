@@ -46,7 +46,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <DataGrid  ItemsSource="{Binding Filtered}" BorderBrush="Blue" x:Name="dataGrid" Margin="50, 10,50,10" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="2" AutoGenerateColumns="False" SelectedItem="{Binding SelectedName}">
+        <DataGrid  ItemsSource="{Binding Filtered}" BorderBrush="Blue" x:Name="dataGrid" Margin="50, 10,50,10" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="2" AutoGenerateColumns="False" CanUserAddRows="True"  SelectedItem="{Binding SelectedName}">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*" Header="Name" Binding="{Binding Name}" />
                 <DataGridTextColumn Width="1*" Header="Group" Binding="{Binding Group}"/>

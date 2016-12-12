@@ -7,25 +7,29 @@ using System.Threading.Tasks;
 
 namespace Dojo3.ViewModels
 {
-    public class StockEntryVM
+    public class StockEntryVM : BaseVM
     {
         private StockEntry stockEntry;
 
         public StockEntryVM()
         {
+            
             this.stockEntry = new StockEntry();
             this.stockEntry.SoftwarePackage = new Software("");
             this.stockEntry.SoftwarePackage.SalesPrice = 0;
             this.stockEntry.SoftwarePackage.PurchasePrice = 0;
             this.stockEntry.SoftwarePackage.Category = new Group();
-            this.stockEntry.SoftwarePackage.Name = "Add new Software";
+            this.stockEntry.SoftwarePackage.Name = "";
             this.stockEntry.SoftwarePackage.Category.Name = "";
+            //Filtered.Add(this.stockEntry);
+            // MainVM.CreateNewEntry(new StockEntryVM(this.stockEntry));
             /*
             this.stockEntry.SoftwarePackage = new Software("");
             this.stockEntry.SoftwarePackage.Category = new Group();
             this.stockEntry.SoftwarePackage.Name = "Add new Software";
             */
         }
+
 
         public StockEntryVM(StockEntry entry)
         {
@@ -38,7 +42,7 @@ namespace Dojo3.ViewModels
             set
             {
                 stockEntry.SoftwarePackage.Name = value;
-                // OnChange("Name");
+                OnChange("Name");
             }
         }
 
@@ -48,7 +52,7 @@ namespace Dojo3.ViewModels
             set
             {
                 stockEntry.SoftwarePackage.SalesPrice = value;
-                // OnChange("SalesPrice");
+                OnChange("SalesPrice");
             }
         }
 
@@ -58,6 +62,7 @@ namespace Dojo3.ViewModels
             set
             {
                 stockEntry.SoftwarePackage.PurchasePrice = value;
+                OnChange("PurchasePrice");
             }
         }
         
@@ -67,6 +72,7 @@ namespace Dojo3.ViewModels
             set
             {
                 stockEntry.SoftwarePackage.Category.Name = value;
+                OnChange("Group");
             }
         }
 

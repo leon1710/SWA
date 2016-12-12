@@ -1,24 +1,28 @@
 ﻿using CodingDojo4DataLib;
 using GalaSoft.MvvmLight.Command;
 using System;
+using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Dojo3.ViewModels
 {
-    public class MainVM
+    public class MainVM : BaseVM
     {
         private List<StockEntry> stock;
         private string userFilter;
         private ObservableCollection<StockEntryVM> items = new ObservableCollection<StockEntryVM>();
         private ObservableCollection<StockEntryVM> filtered = new ObservableCollection<StockEntryVM>();
-        
+         
+
         private StockEntryVM selectedName;
         private RelayCommand filterBtnClicked;
         private RelayCommand deleteBtnClicked;
+        private StockEntryVM newEntry;
 
         public MainVM()
         {
@@ -33,9 +37,15 @@ namespace Dojo3.ViewModels
                 Filtered.Add(new StockEntryVM(item));
             }
 
+            
+            //Items.Add(new StockEntryVM());
+            //Filtered.Add(new StockEntryVM());
+
             DeleteBtnClicked = new RelayCommand(ClearEntry);
             FilterBtnClicked = new RelayCommand(FilterEntries);
         }
+
+
 
         private void FilterEntries()
         {
@@ -56,9 +66,29 @@ namespace Dojo3.ViewModels
         {
             Items.Remove(SelectedName);
             Filtered.Remove(SelectedName);
+            /*
+            for (int i = 0; i < Filtered.Count; i++)
+                if (Filtered[i] == SelectedName)
+                    Filtered.RemoveAt(i);
+
+            Items.Remove(SelectedName);
+            */
+
             //int index = Items.IndexOf(SelectedName);
             //int index2 = Filtered.IndexOf(SelectedName);
             //Filtered.RemoveAt(Filtered.IndexOf(SelectedName));
+        }
+
+        public bool CreateNewEntry(StockEntryVM entry)
+        {
+            Filtered.Add(entry);
+            return true;
+        }
+
+        public void AddItem()
+        {
+            StockEntry newEntry = new StockEntry();
+
         }
 
         public ObservableCollection<StockEntryVM> Items
@@ -71,8 +101,10 @@ namespace Dojo3.ViewModels
             set
             {
                 items = value;
+                OnChange("Items");
             }
         }
+
 
         public RelayCommand FilterBtnClicked
         {
@@ -110,6 +142,7 @@ namespace Dojo3.ViewModels
             set
             {
                 filtered = value;
+                OnChange("Filtered");
             }
         }
 
@@ -137,6 +170,19 @@ namespace Dojo3.ViewModels
             set
             {
                 userFilter = value;
+            }
+        }
+
+        public StockEntryVM NewEntry
+        {
+            get
+            {
+                return newEntry;
+            }
+
+            set
+            {
+                newEntry = value;
             }
         }
     }
